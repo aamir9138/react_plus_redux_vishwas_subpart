@@ -224,3 +224,33 @@ export default HookCakeContainer;
 ```
 
 what is missing now is the button click handler. lets implement in the next lecture.
+
+## lecture 21 useDispatch Hook
+
+`useDispatch` hook is used to dispatch a function with react-redux.
+
+1. import `useDispatch` from `react-redux`.
+2. next call the hook in the component. the `useDispatch` hook returns a reference to the dispatch function from the redux store. lets save that reference in a variable called `const dispatch`. this variable can now be used to dispatch action as needed.
+3. for the button add a click handler `onClick={()=>dispatch(buyCake())}`
+4. make sure to import the action creator `buyCake` at the top
+
+```
+/* lecture 21 useDispatch Hook */
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { buyCake } from './redux';
+function HookCakeContainer() {
+  const dispatch = useDispatch();
+  const numOfCakes = useSelector((state) => state.numOfCakes);
+  return (
+    <div>
+      <h2>Hook cake number of cakes - {numOfCakes}</h2>
+      <button onClick={() => dispatch(buyCake())}>hook buy cake</button>
+    </div>
+  );
+}
+```
+
+### note on hooks with redux
+
+There are a few usage warning using hooks with redux-redux. it all depends on the nesting of components in your application and how you write your selector functions. in `react-redux` documentation you can read about usage warnings.
