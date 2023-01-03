@@ -195,3 +195,32 @@ in React Redux v7.1 hooks have been added. so react-redux now provide a set of h
 The API allows you to subscribe to the redux store and dispatch actions without having to wrap your components with `connect()`.
 
 so next lectures we will understand how to use hooks instead of `connect()`
+
+## lecture 20 useSelector Hook
+
+lets learn about useSelector Hook. `useSelector` is a hook the `react-redux` library provide which act as a close equivalent to the `mapStateToProps()` function we have already seen.
+
+so to get hold of any state that is maintained in the redux store we use `useSelector` hook. for our example we need to get the `numOfCakes` which is stored in the redux store.
+
+1. create a new component for this `HookCakeContainer.js`
+2. import `{useSelector}` from `react-redux`
+3. `useSelector` hook accepts a function as its parameter. and this function is called as the selector function. this selector function receives the redux `state` as its argument. the function can then return a value. for our example we need to return `state.numOfCakes`. The `useSelector` hook returns whatever is returned by this function.
+
+```
+/* lecture 20 useSelector Hook */
+import React from 'react';
+import { useSelector } from 'react-redux';
+function HookCakeContainer() {
+  const numOfCakes = useSelector((state) => state.numOfCakes);
+  return (
+    <div>
+      <h2>Hook cake number of cakes - {numOfCakes}</h2>
+      <button>hook buy cake</button>
+    </div>
+  );
+}
+
+export default HookCakeContainer;
+```
+
+what is missing now is the button click handler. lets implement in the next lecture.
