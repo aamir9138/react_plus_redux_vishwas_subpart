@@ -138,3 +138,50 @@ export default App;
 ```
 
 The next thing to understand is how our react component can `dispatch` an action and `subscribe` to changes in the `store`
+
+## lecture 18 Connect
+
+let us learn the final bit. how do we get hold of the redux state and how do we dispatch actions from within the react component.
+
+- go to `CakeContainer.js` component. it is the container where we want to display the number of cakes which is the part of the redux state and this is also the component from where we want to dispatch the `buyCake` action on a button click.
+
+- we are going to achieve the result in 3 steps.
+
+1. we are going to define a new function. this function is called `const mapStateToProps()`. This function gets the redux state as a parameter and returns an object. in our example we just have one state property that we want to access. and that is the number of cakes.
+
+```
+const mapStateToProps = state => {
+  return {
+    numOfCakes: state.numOfCakes
+  }
+}
+```
+
+in react-redux documentation `selector` is a term used for a separate file where we return the states of the redux. but here we are not doing it as it is a simple state.
+
+2. we will define a new function called `const mapDispatchToProps()`. This function gets the redux `dispatch` method as a parameter and again returns an object. As we have only one action creator in our application so we are going to return a property `buyCake` which is going to be equal to an arrow function which dispatches the action creator from redux.
+
+- export the `buyCake` from `/redux/index.js`. and import it in `CakeContainer.js`
+
+```
+/* lecture 18 Connect */
+export { buyCake } from './cake/cakeActions';
+```
+
+```
+import { buyCake } from './redux';
+const mapDispatchToProps = (dispatch) => {
+  return {
+    buyCake: () => dispatch(buyCake()),
+  };
+};
+```
+
+3. now we are going to connect these two functions with our react component. for that we use the `connect` function or the `connect` higher order component from react-redux library.
+
+```
+import { connect } from 'react-redux';
+export default connect(mapStateToProps, mapDispatchToProps)(CakeContainer);
+```
+
+we can now use these as `props` in our component.
