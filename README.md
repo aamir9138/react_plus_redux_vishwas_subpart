@@ -35,3 +35,29 @@ function App() {
 
 export default App;
 ```
+
+## lecture 15 Actions
+
+1. create a `redux` folder in `components` folder
+2. create a `cake` folder inside `redux` folder
+3. in `cake` folder create `cakeActions.js` and `cakeTypes.js`
+4. in `cakeTypes.js` define a const whose value is a string and export it.
+
+```
+/* lecture 15 Actions */
+// export an constant whose value is a string
+export const BUY_CAKE = 'BUY_CAKE';
+```
+
+5. in `cakeActions.js` define an action creator `buyCake()` and export it.
+
+```
+/* lecture 15 Actions */
+import { BUY_CAKE } from './cakeTypes';
+
+export const buyCake = () => {
+  return {
+    type: BUY_CAKE,
+  };
+};
+```
