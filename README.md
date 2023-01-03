@@ -185,3 +185,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(CakeContainer);
 ```
 
 we can now use these as `props` in our component.
+
+## lecture 19 React Redux with Hooks
+
+React Hooks were introduced after this. hooks basically gives functional component the ability to keep track of component states, execute sideEffects and more.
+
+in React Redux v7.1 hooks have been added. so react-redux now provide a set of hook API as an alternative to existing `connect` higher order component.
+
+The API allows you to subscribe to the redux store and dispatch actions without having to wrap your components with `connect()`.
+
+so next lectures we will understand how to use hooks instead of `connect()`
