@@ -87,3 +87,54 @@ const cakeReducer = (state = initialState, action) => {
 
 export default cakeReducer
 ```
+
+## lecture 17 Store
+
+let us create our Redux store. and provide it to our react application. create a component `Store.js` in redux folder.
+
+1. createStore and pass cakeReducer to it.
+2. assign it to `const store` and then export it.
+
+```
+/* lecture 17 Store */
+import { createStore } from "redux";
+import cakeReducer from "./cake/cakeReducer";
+
+const store = createStore(cakeReducer)
+
+export default store
+```
+
+we have created our `redux store` using redux. the next step is to `provide it to the react application`. and this is where the `react-redux` library makes it first appearance.
+
+To provide the `redux store` to our react application. the `react-redux` library exports a component called `provider`.
+
+### react redux provider
+
+1. in `App.js` file import `provider` from `react-redux`.
+2. wrap the outermost div by the `provider` component.
+3. import `store` from the `./redux/store`.
+4. apply this `store` as a `prop` to the `provider` tag. doing so will provide the redux store down to all the components.
+
+```
+/* lecture 17 Store */
+import { Provider } from 'react-redux';
+import store from './components/redux/Store';
+import './App.css';
+import CakeContainer from './components/CakeContainer';
+
+function App() {
+  return (
+    //doing so will provide store down to all the components
+    <Provider store={store}>
+      <div className="App">
+        <CakeContainer />
+      </div>
+    </Provider>
+  );
+}
+
+export default App;
+```
+
+The next thing to understand is how our react component can `dispatch` an action and `subscribe` to changes in the `store`
