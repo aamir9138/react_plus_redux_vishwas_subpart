@@ -427,3 +427,82 @@ export default store;
 5. now if you open the `Redux` tab in browser you see something like this
 
 ![redux devtool extension](./pictures/redux_devtool_extension.PNG)
+
+## lecture 25 Action payload
+
+how to add a payload to our action creator. in order to learn this first we will introduce an input where we will specify the number of cakes as an input. and then deduct that much cakes from the store.
+
+below are the changes that we did in our code.
+
+### create new component NewCakeContainer.js
+
+```
+/* lecture 25 Action payload */
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { buyCake } from './redux';
+
+const NewCakeContainer = (props) => {
+  const [number, setNumber] = useState(1);
+  return (
+    <div>
+      <h2>number of cakes - {props.numOfCakes}</h2>
+      <input
+        type="text"
+        value={number}
+        onChange={(e) => setNumber(e.target.value)}
+      />
+      <button onClick={() => props.buyCake(number)}>buy {number} cakes</button>
+    </div>
+  );
+};
+
+const mapStateToProps = (state) => {
+  return {
+    numOfCakes: state.cake.numOfCakes,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    buyCake: (number) => dispatch(buyCake(number)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewCakeContainer);
+```
+
+### changes in cakeAction.js
+
+```
+/* lecture 25 Action payload */
+import { BUY_CAKE } from './cakeTypes';
+export const buyCake = (number = 1) => {
+  return {
+    type: BUY_CAKE,
+    payload: number,
+  };
+};
+```
+
+### changes in cakeReducer.js
+
+```
+/* lecture 25 Action payload */
+import { BUY_CAKE } from './cakeTypes';
+const initialState = {
+  numOfCakes: 10,
+};
+const cakeReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case BUY_CAKE:
+      return {
+        ...state,
+        numOfCakes: state.numOfCakes - action.payload,
+      };
+    default:
+      return state;
+  }
+};
+export default cakeReducer;
+```
