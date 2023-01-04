@@ -377,3 +377,27 @@ export default store;
 ### Note
 
 one more change that we need to do is whenever we have more reducers combined than inorder to access the `state` in `mapStateToProps` we need to append the correponding reducer key. for example `numOfIceCream: state.numOfIceCream` will change to `numOfIceCream: state.iceCream.numOfIceCream`. also the same for the cake.
+
+## lecture 23 Logger Middleware
+
+This will be the same as we did with vanilla javascript and redux. the only difference is we will see the logs in browser.
+
+1. install logger middleware `npm i redux-logger`
+2. import the default logger from redux-logger in `Store.js`
+3. apply this middleware for that we first import the `applyMiddleware` function from redux.
+4. then provide the applyMiddleware function to the createStore as a second parameter.
+
+```
+/* lecture 23 Logger Middleware */
+import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+import rootReducer from './rootReducer';
+
+const store = createStore(rootReducer, applyMiddleware(logger));
+
+export default store;
+```
+
+5. run the application and see the logs in console.
+
+![Redux logger logs in console](./pictures/redux_logger_console.PNG)
