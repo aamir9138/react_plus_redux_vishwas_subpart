@@ -254,3 +254,126 @@ function HookCakeContainer() {
 ### note on hooks with redux
 
 There are a few usage warning using hooks with redux-redux. it all depends on the nesting of components in your application and how you write your selector functions. in `react-redux` documentation you can read about usage warnings.
+
+## lecture 22 IceCreams and Cakes
+
+first we follow all the steps as we did for cakes and create the files and folder similar for icecream.
+
+### iceCreamTypes.js
+
+```
+export const BUY_ICECREAM = 'BUY_ICECREAM';
+```
+
+### iceCreamActions.js
+
+```
+/* lecture 22 cakes anc ice creams */
+import { BUY_ICECREAM } from './iceCreamTypes';
+export const buyIceCream = () => {
+  return {
+    type: BUY_ICECREAM,
+  };
+};
+```
+
+### iceCreamReducer.js
+
+```
+/* lecture 22 Cakes and Ice Creams*/
+import { BUY_ICECREAM } from './iceCreamTypes';
+
+const initialState = {
+  numOfIceCream: 20,
+};
+
+const iceCreamReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case BUY_ICECREAM:
+      return {
+        ...state,
+        numOfIceCream: state.numOfIceCream - 1,
+      };
+    default:
+      return state;
+  }
+};
+
+export default iceCreamReducer;
+```
+
+### IceCreamContainer.js
+
+```
+/* lecture 22 Cakes and Ice Creams*/
+import React from 'react';
+import { connect } from 'react-redux';
+import { buyIceCream } from './redux';
+
+const IceCreamContainer = (props) => {
+  return (
+    <div>
+      <h2>number of icecream - {props.numOfIceCream}</h2>
+      <button onClick={props.buyIceCream}>buy icecream</button>
+    </div>
+  );
+};
+
+const mapStateToProps = (state) => {
+  return {
+    numOfIceCream: state.iceCream.numOfIceCream,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    buyIceCream: () => dispatch(buyIceCream()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(IceCreamContainer);
+```
+
+### index.js
+
+export `buyicecream` from index.js as well
+
+```
+/* lecture 22 cakes and icecream */
+export { buyCake } from './cake/cakeActions';
+export { buyIceCream } from './icecream/iceCreamActions';
+```
+
+### Store
+
+As the store need a single reducer for that reason we create a file `rootReducer.js` where we will combine both the reducers export it and use the single `rootReducer` in `Store.js`.
+
+```
+/* lecture 22 Cakes and Ice Creams */
+import { combineReducers } from 'redux';
+import cakeReducer from './cake/cakeReducer';
+import iceCreamReducer from './icecream/iceCreamReducer';
+
+const rootReducer = combineReducers({
+  cake: cakeReducer,
+  iceCream: iceCreamReducer,
+});
+
+export default rootReducer;
+```
+
+below is the modified `Store.js` file.
+
+```
+/* lecture 22 Cakes and Ice Creams */
+import { createStore } from 'redux';
+import rootReducer from './rootReducer';
+
+const store = createStore(rootReducer);
+
+export default store;
+```
+
+### Note
+
+one more change that we need to do is whenever we have more reducers combined than inorder to access the `state` in `mapStateToProps` we need to append the correponding reducer key. for example `numOfIceCream: state.numOfIceCream` will change to `numOfIceCream: state.iceCream.numOfIceCream`. also the same for the cake.

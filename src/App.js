@@ -31,12 +31,34 @@
 
 // export default App;
 
-/* lecture 20 useSelector Hook */
+// /* lecture 20 useSelector Hook */
+// import { Provider } from 'react-redux';
+// import store from './components/redux/Store';
+// import './App.css';
+// import CakeContainer from './components/CakeContainer';
+// import HookCakeContainer from './components/HookCakeContainer';
+
+// function App() {
+//   return (
+//     //doing so will provide store down to all the components
+//     <Provider store={store}>
+//       <div className="App">
+//         <CakeContainer />
+//         <HookCakeContainer />
+//       </div>
+//     </Provider>
+//   );
+// }
+
+// export default App;
+
+/* lecture 22 Cakes and Ice Creams */
 import { Provider } from 'react-redux';
 import store from './components/redux/Store';
 import './App.css';
 import CakeContainer from './components/CakeContainer';
 import HookCakeContainer from './components/HookCakeContainer';
+import IceCreamContainer from './components/IceCreamContainer';
 
 function App() {
   return (
@@ -45,6 +67,7 @@ function App() {
       <div className="App">
         <CakeContainer />
         <HookCakeContainer />
+        <IceCreamContainer />
       </div>
     </Provider>
   );
