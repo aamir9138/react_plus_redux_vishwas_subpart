@@ -401,3 +401,29 @@ export default store;
 5. run the application and see the logs in console.
 
 ![Redux logger logs in console](./pictures/redux_logger_console.PNG)
+
+## lecture 24 Redux Devtool Extension
+
+1. Add the `Redux Devtool extension` to chrome.
+2. go to this github repository [Redux github repository](https://github.com/zalmoxisus/redux-devtools-extension) and see section 1.3
+3. `npm install --save redux-devtools-extension`
+4. make changes in the `Store.js` like so. `composeWithDevTools` is applied to the middleware.
+
+```
+/* lecture 24 Redux Devtool Extension */
+import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import rootReducer from './rootReducer';
+
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(logger))
+);
+
+export default store;
+```
+
+5. now if you open the `Redux` tab in browser you see something like this
+
+![redux devtool extension](./pictures/redux_devtool_extension.PNG)

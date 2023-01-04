@@ -14,11 +14,24 @@
 
 // export default store;
 
-/* lecture 23 Logger Middleware */
+// /* lecture 23 Logger Middleware */
+// import { createStore, applyMiddleware } from 'redux';
+// import logger from 'redux-logger';
+// import rootReducer from './rootReducer';
+
+// const store = createStore(rootReducer, applyMiddleware(logger));
+
+// export default store;
+
+/* lecture 24 Redux Devtool Extension */
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './rootReducer';
 
-const store = createStore(rootReducer, applyMiddleware(logger));
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(logger))
+);
 
 export default store;
